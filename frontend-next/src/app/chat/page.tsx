@@ -7,6 +7,7 @@ import { ChatHistoryObj } from "@/lib/types";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 const baseChatHistory: ChatHistoryObj[] = [
 	{
@@ -17,12 +18,15 @@ const baseChatHistory: ChatHistoryObj[] = [
 ];
 
 export default function ChatPage() {
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [chatMessage, setChatMessage] = useState<string>("");
 	const [chatHistory, setChatHistory] =
 		useState<ChatHistoryObj[]>(baseChatHistory);
 
 	// Filter out system chats
-	const chatsToDisplay = chatHistory.filter((chat) => chat.role !== "system");
+	const chatsToDisplay: ChatHistoryObj[] = chatHistory.filter(
+		(chat) => chat.role !== "system"
+	);
 
 	async function getAIResponse() {
 		// Add the new message to a "fake" chat history essentially
@@ -33,6 +37,7 @@ export default function ChatPage() {
 		});
 
 		setChatMessage("");
+		setIsLoading(true);
 
 		const res = await fetch("/api", {
 			method: "POST",
@@ -44,6 +49,7 @@ export default function ChatPage() {
 
 		const json = await res.json();
 		setChatHistory(json["data"] as ChatHistoryObj[]);
+		setIsLoading(false);
 	}
 
 	return (
@@ -63,13 +69,17 @@ export default function ChatPage() {
 					/>
 				);
 			})}
+			{isLoading && <Loader2 className="animate-spin" />}
 			<div className="w-full flex justify-center pt-8">
 				<div className="flex flex-col gap-4 w-1/2">
 					<Textarea
 						value={chatMessage}
 						onChange={(e) => setChatMessage(e.target.value)}
-						placeholder="Ask a question here"
+						placeholder={
+							isLoading ? "Loading..." : "Ask a question here"
+						}
 						className="resize-y drop-shadow-lg w-full"
+						disabled={isLoading}
 					/>
 					<div className="flex flex-col gap-2">
 						<Button
