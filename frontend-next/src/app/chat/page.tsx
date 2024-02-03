@@ -1,6 +1,7 @@
 "use client";
 
 import ChatSection from "@/components/ChatSection";
+import LoadingSection from "@/components/LoadingSection";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ChatHistoryObj } from "@/lib/types";
@@ -69,7 +70,7 @@ export default function ChatPage() {
 					/>
 				);
 			})}
-			{isLoading && <Loader2 className="animate-spin" />}
+			{isLoading && <LoadingSection />}
 			<div className="w-full flex justify-center pt-8">
 				<div className="flex flex-col gap-4 w-1/2">
 					<Textarea
