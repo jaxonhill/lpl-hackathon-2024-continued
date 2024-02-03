@@ -5,7 +5,7 @@ import { ChatHistoryObj } from "@/lib/types";
 
 export async function POST(req: NextRequest) {
     // Connect to Pinecone and the specific index, as well as OpenAI
-    const pc = new Pinecone()
+    const pc = new Pinecone({ apiKey: process.env.PINECONE_API_KEY! });
     const index = pc.index("lpl-financial-hackathon")
     const openai = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY,
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
         model: "gpt-3.5-turbo",
     });
 
-    // NOTE: We are leaving out the context message from the user on purpose so that the token context window can remain open for improve memory for the AI
+    // NOTE: We are leaving out the context message from the user on purpose so that the token context window can remain open for improved memory for the AI
     const message = chatCompletion["choices"][0]["message"] as ChatHistoryObj;
     chatHistory.push(message);
 
