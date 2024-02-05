@@ -10,7 +10,9 @@ Everyday there are thousands of articles published about market conditions, indi
 1. Easily search and read through hundreds of financial articles from Yahoo Finance, CNBC, and Investing.com all in one "portal"
 2. Ask any question and have a conversation in natural language about the content in the articles utilizing artificial intelligence and a modern chat interface
 
-The live site is available here. Click the AI button next to the search bar to get to the chat page. The demo also provides more clarity.
+**The live site is available [here](https://lpl-financial-hackathon-2024.vercel.app/)**. Click the AI button next to the search bar to get to the chat page. The demo also provides more clarity.
+
+Everything you see on the live site was created completely during the 24 hours of the Hackathon with the exception of the loading spinner and disabled chat box while loading.
 
 ## Demo
 ![Demo Screencapture GIF](https://github.com/jaxonhill/lpl-hackathon-2024-continued/blob/main/readme-images/demo-screencapture.gif?raw=true)
